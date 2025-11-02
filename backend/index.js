@@ -11,6 +11,7 @@ import paymentRoutes from "./routes/payment.route.js";
 import analyticsRoutes from "./routes/analytics.route.js";
 import { connectDB } from "./lib/db.js";
 import path from "path";
+import { fileURLToPath } from "url";
 
 dotenv.config();
 const app = express();
@@ -30,8 +31,8 @@ app.use(
 );
 
 const PORT = process.env.PORT || 3000;
-
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
@@ -41,15 +42,16 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  // const frontendPath = path.resolve(__dirname, "../frontend/dist");
-  // app.use(express.static(frontendPath));
-  // app.get("/*", function (req, res) {
-  //   res.sendFile(path.join(frontendPath, "index.html"), (err) => {
-  //     if (err) {
-  //       res.status(500).send(err);
-  //     }
-  //   });
-  // });
+  const frontendPath = path.join(__dirname, "../frontend/dist");
+  app.use(express.static(frontendPath));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(frontendPath, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running...");
+  });
 }
 
 app.listen(PORT, () => {
