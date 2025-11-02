@@ -14,6 +14,7 @@ function PurchaseSuccess() {
   const [isProcessing, setIsProcessing] = useState(true);
   const { clearCart } = useCartStore();
   const [error, setError] = useState("");
+
   useEffect(() => {
     const handleCheckout = async (sessionId) => {
       try {
@@ -41,8 +42,8 @@ function PurchaseSuccess() {
 
   if (isProcessing) {
     return (
-      <div className="flex flex-col items-center justify-center h-[80vh] text-gray-700">
-        <Loader2 className="w-8 h-8 mb-3 text-blue-500 animate-spin" />
+      <div className="flex flex-col items-center justify-center h-[70vh] text-gray-700 overflow-hidden">
+        <Loader2 className="mb-3 text-blue-500 size-8 animate-spin" />
         <p className="text-lg font-medium">Processing your payment...</p>
       </div>
     );
@@ -53,12 +54,12 @@ function PurchaseSuccess() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-gradient-to-br from-emerald-100 via-blue-100 to-white">
+    <div className="flex items-center justify-center w-full min-h-screen overflow-x-hidden overflow-y-hidden bg-gradient-to-br from-emerald-100 via-blue-100 to-white">
       <Confetti
         width={window.innerWidth}
         height={window.innerHeight}
         gravity={0.7}
-        style={{ zIndex: 99 }}
+        style={{ position: "fixed", inset: 0, zIndex: 99 }}
         numberOfPieces={500}
         recycle={false}
       />
@@ -66,7 +67,7 @@ function PurchaseSuccess() {
         initial={{ opacity: 0, scale: 0.95, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-md border border-gray-100 shadow-2xl rounded-2xl bg-white/90 backdrop-blur-md"
+        className="relative z-10 w-full max-w-md mx-4 border border-gray-100 shadow-2xl rounded-2xl bg-white/90 backdrop-blur-md sm:mx-0"
       >
         <div className="p-8 sm:p-10">
           <div className="flex justify-center">
