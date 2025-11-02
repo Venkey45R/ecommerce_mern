@@ -32,13 +32,25 @@ app.use(
 const PORT = process.env.PORT || 3000;
 
 const __dirname = path.resolve();
+console.log("🔍 Registering routes...");
 
 app.use("/api/auth", authRoutes);
+console.log("✅ Auth route loaded");
+
 app.use("/api/products", productRoutes);
+console.log("✅ Product route loaded");
+
 app.use("/api/cart", cartRoutes);
+console.log("✅ Cart route loaded");
+
 app.use("/api/coupons", couponRoutes);
+console.log("✅ Coupon route loaded");
+
 app.use("/api/payments", paymentRoutes);
+console.log("✅ Payment route loaded");
+
 app.use("/api/analytics", analyticsRoutes);
+console.log("✅ Analytics route loaded");
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
