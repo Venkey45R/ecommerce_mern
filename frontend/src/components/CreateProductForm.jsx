@@ -47,25 +47,27 @@ function CreateProductForm() {
       reader.onloadend = () => {
         setNewProduct({ ...newProduct, image: reader.result });
       };
-      reader.readAsDataURL(file); //base64 format
+      reader.readAsDataURL(file);
     }
   };
+
   return (
     <motion.div
-      className="max-w-xl p-8 mx-auto mb-8 bg-gray-900 shadow-xl rounded-3xl"
+      className="max-w-2xl w-full mx-auto mt-16 p-10 bg-gradient-to-br from-indigo-50 via-white to-indigo-100 rounded-3xl shadow-[0_10px_30px_rgba(0,0,0,0.1)]"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
     >
-      <h2 className="mb-6 text-3xl font-bold text-emerald-400">
-        Create New Product
+      <h2 className="mb-8 text-3xl font-extrabold text-center text-indigo-900">
+        Create <span className="text-indigo-600">New Product</span>
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Product Name */}
         <div>
           <label
             htmlFor="name"
-            className="block mb-1 text-sm font-medium text-gray-300"
+            className="block mb-2 text-sm font-semibold text-indigo-800"
           >
             Product Name
           </label>
@@ -77,7 +79,7 @@ function CreateProductForm() {
               setNewProduct({ ...newProduct, name: e.target.value })
             }
             placeholder="Enter product name"
-            className="block w-full px-4 py-2 text-white bg-gray-800 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-400"
+            className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
             required
           />
         </div>
@@ -86,7 +88,7 @@ function CreateProductForm() {
         <div>
           <label
             htmlFor="description"
-            className="block mb-1 text-sm font-medium text-gray-300"
+            className="block mb-2 text-sm font-semibold text-indigo-800"
           >
             Description
           </label>
@@ -97,7 +99,7 @@ function CreateProductForm() {
               setNewProduct({ ...newProduct, description: e.target.value })
             }
             placeholder="Enter product description"
-            className="block w-full px-4 py-2 text-white bg-gray-800 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-400"
+            className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
             required
           />
         </div>
@@ -106,7 +108,7 @@ function CreateProductForm() {
         <div>
           <label
             htmlFor="price"
-            className="block mb-1 text-sm font-medium text-gray-300"
+            className="block mb-2 text-sm font-semibold text-indigo-800"
           >
             Price (₹)
           </label>
@@ -118,7 +120,7 @@ function CreateProductForm() {
               setNewProduct({ ...newProduct, price: e.target.value })
             }
             placeholder="Enter price"
-            className="block w-full px-4 py-2 text-white bg-gray-800 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-400"
+            className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
             required
           />
         </div>
@@ -127,7 +129,7 @@ function CreateProductForm() {
         <div>
           <label
             htmlFor="category"
-            className="block mb-1 text-sm font-medium text-gray-300"
+            className="block mb-2 text-sm font-semibold text-indigo-800"
           >
             Category
           </label>
@@ -137,7 +139,7 @@ function CreateProductForm() {
             onChange={(e) =>
               setNewProduct({ ...newProduct, category: e.target.value })
             }
-            className="block w-full px-4 py-2 text-white bg-gray-800 border border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-400"
+            className="block w-full px-4 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
             required
           >
             <option value="">Select a category</option>
@@ -149,7 +151,7 @@ function CreateProductForm() {
           </select>
         </div>
 
-        {/* Image URL */}
+        {/* Image Upload */}
         <div>
           <input
             type="file"
@@ -160,22 +162,25 @@ function CreateProductForm() {
           />
           <label
             htmlFor="image"
-            className="px-3 py-2 text-sm font-medium leading-4 text-white bg-blue-600 border border-white rounded-md shadow-sm cursor-pointer hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset focus:ring-emerald-500"
+            className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white bg-indigo-600 rounded-lg shadow-md cursor-pointer hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
           >
             <Upload className="inline-block mr-2 size-5" />
-            Upload Image
+            Upload Product Image
           </label>
           {newProduct.image && (
-            <span className="ml-3 text-sm text-white">Image Received</span>
+            <p className="mt-2 text-sm font-medium text-center text-green-600">
+              ✅ Image Uploaded
+            </p>
           )}
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full px-6 py-3 mt-4 text-white transition-all duration-300 rounded-lg shadow-lg bg-emerald-500 hover:bg-emerald-600"
+          disabled={loading}
+          className="w-full px-6 py-3 mt-4 font-semibold text-white transition-all duration-300 bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          Add Product
+          {loading ? "Adding Product..." : "Add Product"}
         </button>
       </form>
     </motion.div>

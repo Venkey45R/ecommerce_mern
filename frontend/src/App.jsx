@@ -14,6 +14,7 @@ import { useCartStore } from "./stores/useCartStore";
 import NavBarSample from "./components/NavBarSample";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
 import PurchaseFailed from "./pages/PurchaseFailed";
+import Footer from "./components/Footer";
 
 function App() {
   const { user, checkAuth, checkingAuth } = useUserStore();
