@@ -40,8 +40,36 @@ function PurchaseSuccess() {
   }, [clearCart]);
 
   if (isProcessing) {
-    return "processing";
+    return (
+      <div className="flex flex-col items-center justify-center h-[80vh] text-gray-700">
+        <svg
+          className="w-10 h-10 mb-4 text-blue-500 animate-spin"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v8H4z"
+          ></path>
+        </svg>
+        <p className="text-lg font-medium">Processing your payment...</p>
+        <p className="mt-1 text-sm text-gray-500">
+          Please don’t refresh or close this page.
+        </p>
+      </div>
+    );
   }
+
   if (error) {
     return `Error: ${error}`;
   }
