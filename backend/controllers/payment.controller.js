@@ -23,6 +23,7 @@ export const createCheckoutSession = async (req, res) => {
           product_data: { name: product.name, images: [product.image] },
           unit_amount: amount,
         },
+        quantity: product.quantity || 1,
       };
     });
     let coupon = null;
@@ -50,7 +51,7 @@ export const createCheckoutSession = async (req, res) => {
         : [],
       metadata: {
         userId: req.user._id.toString(),
-        couponCode: coupon.code || "",
+        couponCode: coupon?.code || null,
         products: JSON.stringify(
           products.map((p) => ({
             id: p._id,
@@ -74,8 +75,7 @@ export const createCheckoutSession = async (req, res) => {
 
 export const SessionSuccess = async (req, res) => {
   try {
-    const { session_id } = req.body;
-    const session = await stripe.checkout.sessions.retrieve(session_id);
+    const session = await stripe.checkout.sessions.retrieve(req.body.sessionId);
     if (session.payment_status === "paid") {
       if (session.metadata.couponCode) {
         await Coupon.findOneAndUpdate(
@@ -124,6 +124,7 @@ async function createStripeCoupon(discountPercentage) {
 }
 
 async function createNewCoupon(userId) {
+  await Coupon.findOneAndDelete({ userId: userId });
   const newCoupon = new Coupon({
     code: "GIFT" + Math.random().toString(35).substring(2, 8).toUpperCase(),
     discountPercentage: 10,

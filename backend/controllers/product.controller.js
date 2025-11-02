@@ -1,5 +1,6 @@
 import Product from "../models/product.mosel.js";
 import redis from "../lib/redis.js";
+import cloudinary from "../lib/clodinary.js";
 
 export const getAllProducts = async (req, res) => {
   try {
@@ -31,16 +32,23 @@ export const getFeaturedProducts = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const { name, deacription, price, image, category } = req.body;
-    let cloudinaryResponse = null;
+    const { name, description, price, image, category } = req.body;
+    let cloudinaryResponse = null; // Initialize the variable that will hold the upload result
+
     if (image) {
-      await cloudinaryResponse.uploader.upload(image, { folder: "products" });
+      // FIX: Use the 'cloudinary' object for the upload, and assign the result to 'cloudinaryResponse'
+      cloudinaryResponse = await cloudinary.uploader.upload(image, {
+        folder: "products",
+      });
     }
+
+    // ... rest of the code
     const product = await Product.create({
       name,
-      decription,
+      description,
       price,
       category,
+      // Use optional chaining for safety, but now it should hold the result object if an image was uploaded
       image: cloudinaryResponse?.secure_url,
     });
     res.status(201).json(product);
@@ -68,7 +76,7 @@ export const deleteProduct = async (req, res) => {
           .json({ message: "Error deleting image from cloudinary" });
       }
     }
-    await product.findByIdAndDelete(req.params.id);
+    await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.log("Error in deleteProduct controller:", error);
@@ -80,7 +88,7 @@ export const getRecommandedProducts = async (req, res) => {
   try {
     const products = await Product.aggregate([
       {
-        $sample: { size: 3 },
+        $sample: { size: 4 },
       },
       {
         $project: {
@@ -103,7 +111,7 @@ export const getProductsByCategory = async (req, res) => {
   const { category } = req.params;
   try {
     const products = await Product.find({ category });
-    res.json(products);
+    res.json({ products });
   } catch (error) {
     console.log("Error in getProductsByCategory controller:", error);
     res.status(500).json({ message: error.message });
