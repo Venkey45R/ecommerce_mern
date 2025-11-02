@@ -15,6 +15,10 @@ import path from "path";
 dotenv.config();
 const app = express();
 
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception =>", err);
+});
+
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 
