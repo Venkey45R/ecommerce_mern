@@ -41,16 +41,15 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/analytics", analyticsRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  const frontendPath = path.resolve(__dirname, "../frontend/dist");
-  app.use(express.static(frontendPath));
-
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(frontendPath, "index.html"), (err) => {
-      if (err) {
-        res.status(500).send(err);
-      }
-    });
-  });
+  // const frontendPath = path.resolve(__dirname, "../frontend/dist");
+  // app.use(express.static(frontendPath));
+  // app.get("/*", function (req, res) {
+  //   res.sendFile(path.join(frontendPath, "index.html"), (err) => {
+  //     if (err) {
+  //       res.status(500).send(err);
+  //     }
+  //   });
+  // });
 }
 
 app.listen(PORT, () => {
