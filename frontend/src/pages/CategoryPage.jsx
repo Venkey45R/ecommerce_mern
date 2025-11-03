@@ -3,15 +3,21 @@ import { useProductStore } from "../stores/useProductStore";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Productcard from "../components/Productcard";
+import { useState } from "react";
 
 function CategoryPage() {
   const { fetchProductsByCategory, products } = useProductStore();
   const { category } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchProductsByCategory(category);
+    setIsLoading(false);
   }, [fetchProductsByCategory]);
 
+  if (isLoading) {
+    return <div>Loading Products</div>;
+  }
   return (
     <div className="min-h-screen">
       <div className="relative z-10 max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
