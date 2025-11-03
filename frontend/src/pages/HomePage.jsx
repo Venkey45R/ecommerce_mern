@@ -4,7 +4,7 @@ import HeroSection from "../components/HeroSection";
 import { useProductStore } from "../stores/useProductStore";
 import FeaturedProducts from "../components/FeaturedProducts";
 import FeaturedProductSlide from "../components/FeaturedProductSlide";
-
+import Footer from "../components/Footer";
 const categories = [
   { href: "/jeans", name: "Jeans", imageUrl: "/jeans.jpg" },
   { href: "/t-shirts", name: "T-shirts", imageUrl: "/tshirts.jpg" },
@@ -40,6 +40,9 @@ const HomePage = () => {
           <FeaturedProductSlide featuredProducts={products} />
         )}
       </section>
+      <div className="w-full">
+        <Footer />
+      </div>
     </div>
   );
 };

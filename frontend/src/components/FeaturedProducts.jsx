@@ -70,7 +70,7 @@ function FeaturedProducts({ featuredProducts }) {
                         {product.name}
                       </h3>
                       <p className="mb-4 font-medium text-emerald-300">
-                        ${product.price.toFixed(2)}
+                        ₹{product.price.toFixed(2)}
                       </p>
                       <button
                         onClick={() => addToCart(product)}

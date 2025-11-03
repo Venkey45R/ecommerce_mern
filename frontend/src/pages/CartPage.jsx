@@ -7,6 +7,7 @@ import CartItem from "../components/CartItem";
 import OrderSummary from "../components/OrderSummary";
 import PeopleAlsoBought from "../components/PeopleAlsoBought";
 import GiftCouponCart from "../components/GiftCouponCart";
+import Footer from "../components/Footer";
 
 function CartPage() {
   const { cart } = useCartStore();

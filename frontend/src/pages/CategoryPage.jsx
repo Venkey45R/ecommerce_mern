@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Productcard from "../components/Productcard";
 import { useState } from "react";
+import Footer from "../components/Footer";
 
 function CategoryPage() {
   const { fetchProductsByCategory, products } = useProductStore();
@@ -45,6 +46,10 @@ function CategoryPage() {
             <Productcard key={product._id} product={product} />
           ))}
         </motion.div>
+      </div>
+
+      <div className="w-full">
+        <Footer />
       </div>
     </div>
   );

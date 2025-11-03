@@ -47,7 +47,7 @@ function CartItem({ item }) {
 
           {/* Price */}
           <p className="text-lg font-semibold text-emerald-600">
-            ${item.price}
+            ₹{item.price}
           </p>
 
           {/* Remove */}

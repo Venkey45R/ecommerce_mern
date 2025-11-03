@@ -106,44 +106,61 @@ function AnalyticsTab() {
 
       {/* Chart Section */}
       <motion.div
-        className="p-6 bg-blue-600 border shadow-lg rounded-2xl border-blue-800/50"
+        className="p-0 border shadow-xl lg:p-6 bg-gradient-to-br from-slate-800 to-blue-900 rounded-2xl border-blue-700/40"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
       >
-        <h2 className="mb-4 text-xl font-semibold text-center">
+        <h2 className="mb-4 text-2xl font-semibold text-center text-white">
           Daily Sales & Revenue Trends
         </h2>
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={300}>
           <LineChart data={dailySalesData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1E3A8A" />
+            <CartesianGrid
+              strokeDasharray="4 4"
+              stroke="rgba(255,255,255,0.15)"
+            />
             <XAxis
               dataKey="date"
-              stroke="#E5E7EB"
+              stroke="#CBD5E1"
               tickFormatter={(tick) => tick.slice(5)} // MM-DD format
+              tick={{ fill: "#E2E8F0" }}
             />
-            <YAxis yAxisId="left" stroke="#E5E7EB" />
-            <YAxis yAxisId="right" orientation="right" stroke="#E5E7EB" />
+            <YAxis yAxisId="left" stroke="#CBD5E1" tick={{ fill: "#E2E8F0" }} />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              stroke="#CBD5E1"
+              tick={{ fill: "#E2E8F0" }}
+            />
             <Tooltip
-              contentStyle={{ backgroundColor: "#1E293B", border: "none" }}
+              contentStyle={{
+                backgroundColor: "#1E293B",
+                border: "1px solid #334155",
+                borderRadius: "8px",
+                color: "#F1F5F9",
+              }}
+              labelStyle={{ color: "#E2E8F0" }}
             />
-            <Legend />
+            <Legend wrapperStyle={{ color: "#E2E8F0", fontWeight: 500 }} />
             <Line
               yAxisId="left"
               type="monotone"
               dataKey="sales"
-              stroke="#10B981"
-              strokeWidth={2}
-              activeDot={{ r: 8 }}
+              stroke="#FACC15" // bright yellow for contrast
+              strokeWidth={3}
+              dot={{ r: 5, fill: "#FACC15", strokeWidth: 0 }}
+              activeDot={{ r: 8, stroke: "#FACC15", fill: "#FFF" }}
               name="Sales Count"
             />
             <Line
               yAxisId="right"
               type="monotone"
               dataKey="revenue"
-              stroke="#3B82F6"
-              strokeWidth={2}
-              activeDot={{ r: 8 }}
+              stroke="#38BDF8" // light cyan-blue
+              strokeWidth={3}
+              dot={{ r: 5, fill: "#38BDF8", strokeWidth: 0 }}
+              activeDot={{ r: 8, stroke: "#38BDF8", fill: "#FFF" }}
               name="Revenue (₹)"
             />
           </LineChart>

@@ -37,7 +37,7 @@ function Productcard({ product }) {
 
         <div className="flex items-center justify-between mt-4 mb-4">
           <span className="text-2xl font-bold text-emerald-400">
-            ${product.price}
+            ₹{product.price}
           </span>
           <span className="text-sm text-gray-700">In Stock</span>
         </div>
